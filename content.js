@@ -1,4 +1,5 @@
 const GROQ_API_KEY = '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';
+
 async function getGroqCompletion(text) {
     try {
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -8,12 +9,15 @@ async function getGroqCompletion(text) {
                 'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",  // Updated to current model
+                model: "llama-3.3-70b-versatile",
                 messages: [{
+                    role: "system",
+                    content: "You are an autocomplete assistant. Provide very short, natural word completions. Complete only the current word or add 1-2 relevant next words maximum. No full sentences, no explanations."
+                }, {
                     role: "user",
-                    content: `You are an expert at completing words or sentences naturally in a human way. Please complete the following text/word: ${text}`
+                    content: `Complete this text with just 1-2 words naturally, don't repeat the letter already written down: ${text}. If there is a '.' or '?' or '!', start the sentence with caps only for the first letter.`
                 }],
-                max_tokens: 100,
+                max_tokens: 20,
                 temperature: 0.7,
                 stop: ["\n", ".", "!", "?"]
             })
