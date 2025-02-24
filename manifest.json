@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "AutoTab",
+    "version": "1.0",
+    "description": "AI-powered text completion",
+    "permissions": ["activeTab"],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "run_at": "document_start"
+      }
+    ]
+  }
